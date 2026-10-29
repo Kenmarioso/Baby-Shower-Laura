@@ -1111,24 +1111,38 @@
           if (!sheetUrl.value) return;
           updateSheetStatusBadge(true, 'Cargando datos...');
           try {
-            const res = await fetch(sheetUrl.value);
+            const res = await fetch(`${sheetUrl.value}?t=${new Date().getTime()}`);
             const data = await res.json();
             
-            if (Array.isArray(data) && data.length > 0) {
+            if (data.status === 'success' && Array.isArray(data.regalos)) {
               gifts.value.forEach(g => {
-                const sheetItems = data.filter(item => item.id == g.id && item.status === 'Reservado');
+                const sheetItems = data.regalos.filter(item => item.id == g.id && item.estado && item.estado.startsWith('Reservado'));
                 if (sheetItems.length > 0) {
-                  g.reservations = sheetItems.map(item => ({
-                    id: item.date || Date.now() + Math.random(),
-                    guestName: item.reservedBy || 'Un invitado',
-                    size: item.variant || '',
-                    note: item.note || '',
-                    contact: '',
-                    date: item.date || new Date().toISOString()
-                  }));
+                  g.reservations = sheetItems.map(item => {
+                    let guestName = item.estado.replace('Reservado por ', '').trim();
+                    let size = '';
+                    
+                    if (guestName.includes('(')) {
+                      const partes = guestName.split('(');
+                      guestName = partes[0].trim();
+                      size = partes[1].replace(')', '').trim();
+                    }
+					return {
+                      id: Date.now() + Math.random(),
+                      guestName: guestName,
+                      size: size,
+                      note: '',
+                      contact: '',
+                      date: new Date().toISOString()
+                    };
+                  });
+                } else {
+					
+				  g.reservations = [];
                 }
               });
-              updateSheetStatusBadge(true, 'Sincronizado');
+				
+                updateSheetStatusBadge(true, 'Sincronizado');
             }
           } catch (err) {
             console.error('Error sincronizando con Google Sheets:', err);
