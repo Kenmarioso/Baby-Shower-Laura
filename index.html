@@ -1150,10 +1150,10 @@
           } catch (err) {
             console.error('Error enviando reserva a Sheets:', err);
           }
-	  setTimeout(() => {
-    	   fetchGiftsFromSheet();
-  	  }, 2000);
-        };
+	      setTimeout(() => {
+    	    fetchGiftsFromSheet();
+  	      }, 2000);
+         };
 
         const seedGoogleSheet = async () => {
           if (!sheetUrl.value) return;
