@@ -1186,27 +1186,27 @@
         // Carga y Persistencia LocalStorage
         onMounted(() => {
           updateTimers();
-	  timerInterval = setInterval(updateTimers, 1000);
+	      timerInterval = setInterval(updateTimers, 1000);
 
-	  if (sheetUrl.value) {
-	    fetchGiftsFromSheet();
+	      if (sheetUrl.value) {
+	        fetchGiftsFromSheet();
 	
-	    setInterval(() => {
-	      fetchGiftsFromSheets();
-	    }, 1000);
+	        setInterval(() => {
+	         fetchGiftsFromSheets();
+	        }, 1000);
 
-	  } else {
-	    updateSheetStatusBadge(false, 'No configurado');
-	  }
-	});
+	      } else {
+	        updateSheetStatusBadge(false, 'No configurado');
+	      }
+	    });
 	
-	onUnmounted(() => {
-	  if (timerInterval) clearInterval(timerInterval);
-	});
+	    onUnmounted(() => {
+	      if (timerInterval) clearInterval(timerInterval);
+	    });
 	
-	watch(eventDetails, (val) => {
-	  updateTimers();
-	}, { deep: true});
+	    watch(eventDetails, (val) => {
+	     updateTimers();
+	    }, { deep: true});
 
         // Cálculos de Tiempo
         const updateTimers = () => {
