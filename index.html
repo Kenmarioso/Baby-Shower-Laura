@@ -370,6 +370,10 @@
                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver referencia del regalo
               </a>
 
+              <a v-if="gift.ejemplo" :href="gift.ejemplo" target="_blank" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition-colors mb-4 border border-rose-200 w-fit">
+                <i class="fa-solid fa-gift"></i> Ver ejemplo
+              </a>
+
               <!-- Opciones / Tallas sugeridas si aplica -->
               <div v-if="gift.options && gift.options.length > 0" class="mb-4 flex flex-wrap gap-1">
                 <span v-for="opt in gift.options" :key="opt" class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200">
@@ -613,6 +617,7 @@
             category: "Para Mamá",
             icon: "fa-user-nurse",
             description: "Bata suave y ligera ideal para estar cómoda durante la estancia en el hospital.",
+            ejemplo: "Talla grande, idealmente XXL",
             isMulti: false,
             options: [],
             badgeBg: "bg-rose-100 text-rose-600",
@@ -646,6 +651,7 @@
             category: "Dormitorio",
             icon: "fa-vest",
             description: "Saco de dormir térmico y seguro para mantener abrigada a Laura por las noches.",
+            ejemplo: "https://www.opaline.cl/saco-de-dormir-muselina-rosado-infant-nina/p?skuId=24083",
             isMulti: false,
             options: [],
             badgeBg: "bg-violet-100 text-violet-600",
